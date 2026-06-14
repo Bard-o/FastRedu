@@ -33,6 +33,20 @@
 /* ─── Theme Variables ─────────────────────────────────────────────────────── */
 
 :root {
+  /*
+   * UI Scale — rem-based sizing
+   * ─────────────────────────────────────
+   * Reference: 62.5% → 1rem = 10px (1:1 design scale)
+   * Current:   93.75% → 1rem = 15px (+50%, matches 150% browser zoom)
+   *
+   * All rem values are written as (original_px / 10).
+   * To adjust UI scale: change this percentage.
+   *   62.5%  = standard (1rem = 10px)
+   *   78.125% = +25% (1rem = 12.5px)
+   *   93.75% = +50% (1rem = 15px)  ← current
+   */
+  font-size: 93.75%;
+
   /* Backgrounds */
   --bg-editor: #0f0f0d;
   --bg-rsvp: #0a0a08;
@@ -57,19 +71,19 @@
   --font-serif: Georgia, 'Times New Roman', serif;
   --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
 
-  /* Spacing */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
+  /* Spacing (rem — scales with font-size) */
+  --space-1: 0.4rem;
+  --space-2: 0.8rem;
+  --space-3: 1.2rem;
+  --space-4: 1.6rem;
+  --space-5: 2rem;
+  --space-6: 2.4rem;
 
-  /* Radii */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  /* Radii (rem — scales with font-size) */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.6rem;
+  --radius-lg: 0.8rem;
+  --radius-xl: 1.2rem;
   --radius-full: 9999px;
 
   /* Transitions */

@@ -30,7 +30,7 @@
  * @selector .sidebar
  */
 .sidebar {
-  width: 220px;
+  width: 22rem;
   flex-shrink: 0;
   border-right: 0.5px solid var(--border-subtle);
   padding: var(--space-4);
@@ -57,19 +57,19 @@
 }
 
 .uploadIcon {
-  font-size: 20px;
+  font-size: 2rem;
   color: rgba(217, 119, 87, 0.6);
   margin-bottom: var(--space-2);
 }
 
 .uploadText {
-  font-size: 11px;
+  font-size: 1.1rem;
   color: var(--text-tertiary);
   line-height: 1.5;
 }
 
 .uploadFormats {
-  font-size: 10px;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.2);
   margin-top: var(--space-1);
 }
@@ -79,7 +79,7 @@
  * @selector .sidebarSectionLabel
  */
 .sidebarSectionLabel {
-  font-size: 10px;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.25);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -99,7 +99,7 @@
 }
 
 .wpmValue {
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 500;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
@@ -107,8 +107,7 @@
 }
 
 .wpmLabel {
-  font-size: 10px;
-  color: var(--text-tertiary);
+  font-size: 1rem;
   margin-top: 2px;
 }
 
@@ -118,13 +117,13 @@
 }
 
 .wpmBtn {
-  width: 22px;
-  height: 22px;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: var(--radius-sm);
   border: 0.5px solid var(--border-input);
   background: transparent;
   color: rgba(255, 255, 255, 0.4);
-  font-size: 14px;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,8 +144,8 @@
  */
 .progressBarWrap {
   background: rgba(255, 255, 255, 0.06);
-  border-radius: 3px;
-  height: 3px;
+  border-radius: 0.3rem;
+  height: 0.3rem;
   overflow: hidden;
 }
 
@@ -156,8 +155,8 @@
  */
 .progressFill {
   background: var(--accent);
-  height: 3px;
-  border-radius: 3px;
+  height: 0.3rem;
+  border-radius: 0.3rem;
   transition: width var(--transition-normal);
 }
 
@@ -165,7 +164,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: var(--space-1);
-  font-size: 10px;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.25);
 }
 
@@ -177,7 +176,7 @@
  */
 .editorArea {
   flex: 1;
-  padding: var(--space-5) 22px;
+  padding: var(--space-5) 2.2rem;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -190,7 +189,7 @@
  * @selector .editorPara
  */
 .editorPara {
-  font-size: 13px;
+  font-size: 1.3rem;
   line-height: 1.75;
   color: var(--text-secondary);
   cursor: text;
@@ -211,8 +210,8 @@
 .wordHighlight {
   background: var(--accent-dim);
   color: var(--accent);
-  border-radius: 3px;
-  padding: 0 2px;
+  border-radius: 0.3rem;
+  padding: 0 0.2rem;
 }
 
 /* ─── Topbar ──────────────────────────────────────────────────────────────── */
@@ -225,7 +224,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px var(--space-4);
+  padding: 1rem var(--space-4);
   border-bottom: 0.5px solid var(--border-subtle);
   background-color: var(--bg-editor);
 }
@@ -235,7 +234,7 @@
  * @selector .logo
  */
 .logo {
-  font-size: 13px;
+  font-size: 1.3rem;
   font-weight: 500;
   color: var(--accent);
   letter-spacing: 0.02em;
@@ -247,8 +246,8 @@
 }
 
 .tab {
-  font-size: 12px;
-  padding: var(--space-1) 10px;
+  font-size: 1.2rem;
+  padding: var(--space-1) 1rem;
   border-radius: var(--radius-md);
   color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
@@ -267,8 +266,8 @@
 }
 
 .btnGhost {
-  font-size: 12px;
-  padding: var(--space-1) 10px;
+  font-size: 1.2rem;
+  padding: var(--space-1) 1rem;
   border-radius: var(--radius-md);
   border: 0.5px solid var(--border-input);
   color: rgba(255, 255, 255, 0.5);
@@ -283,8 +282,8 @@
 }
 
 .btnPrimary {
-  font-size: 12px;
-  padding: var(--space-1) 12px;
+  font-size: 1.2rem;
+  padding: var(--space-1) 1.2rem;
   border-radius: var(--radius-md);
   background: var(--accent);
   color: #fff;
@@ -311,8 +310,8 @@
   position: absolute;
   bottom: var(--space-4);
   right: var(--space-4);
-  width: 44px;
-  height: 44px;
+  width: 4.4rem;
+  height: 4.4rem;
   border-radius: var(--radius-full);
   background: var(--accent);
   display: flex;
@@ -320,7 +319,7 @@
   justify-content: center;
   border: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 2rem;
   cursor: pointer;
   box-shadow: none;
   transition: all var(--transition-fast);

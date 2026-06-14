@@ -18,7 +18,7 @@
   justify-content: center;
   gap: var(--space-3);
   padding: var(--space-6);
-  min-height: 200px;
+  min-height: 20rem;
   background-color: var(--bg-editor);
   border-radius: var(--radius-xl);
   border: 0.5px solid var(--border-subtle);
@@ -26,26 +26,26 @@
 }
 
 .fallbackIcon {
-  font-size: 32px;
+  font-size: 3.2rem;
   color: var(--accent);
   opacity: 0.7;
 }
 
 .fallbackTitle {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .fallbackMessage {
-  font-size: 12px;
+  font-size: 1.2rem;
   color: var(--text-tertiary);
-  max-width: 280px;
+  max-width: 28rem;
   line-height: 1.5;
 }
 
 .fallbackRetry {
-  font-size: 12px;
+  font-size: 1.2rem;
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-md);
   background: var(--accent-dim);
