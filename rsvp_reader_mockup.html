@@ -1,0 +1,160 @@
+
+<style>
+  .mock-root { font-family: var(--font-sans); color: var(--color-text-primary); padding: 1rem 0; }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .screen { background: #0f0f0d; border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); overflow: hidden; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+  .logo { font-size: 13px; font-weight: 500; color: #D97757; letter-spacing: 0.02em; }
+  .tab-row { display: flex; gap: 4px; }
+  .tab { font-size: 12px; padding: 4px 10px; border-radius: 6px; color: rgba(255,255,255,0.4); cursor: pointer; }
+  .tab.active { background: rgba(217,119,87,0.15); color: #D97757; }
+  .topbar-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-ghost { font-size: 12px; padding: 4px 10px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); background: transparent; }
+  .btn-primary { font-size: 12px; padding: 4px 12px; border-radius: 6px; background: #D97757; color: #fff; border: none; font-weight: 500; }
+  .editor-body { display: grid; grid-template-columns: 220px 1fr; min-height: 320px; }
+  .sidebar { border-right: 0.5px solid rgba(255,255,255,0.07); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .upload-zone { border: 0.5px dashed rgba(217,119,87,0.4); border-radius: 8px; padding: 14px 10px; text-align: center; }
+  .upload-icon { font-size: 20px; color: rgba(217,119,87,0.6); margin-bottom: 6px; }
+  .upload-text { font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.5; }
+  .upload-formats { font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 4px; }
+  .sidebar-section { font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .wpm-control { display: flex; align-items: center; justify-content: space-between; }
+  .wpm-val { font-size: 20px; font-weight: 500; color: #D97757; font-variant-numeric: tabular-nums; }
+  .wpm-label { font-size: 10px; color: rgba(255,255,255,0.3); }
+  .wpm-btns { display: flex; gap: 4px; }
+  .wpm-btn { width: 22px; height: 22px; border-radius: 4px; border: 0.5px solid rgba(255,255,255,0.1); background: transparent; color: rgba(255,255,255,0.4); font-size: 14px; display: flex; align-items: center; justify-content: center; }
+  .progress-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 3px; height: 3px; }
+  .progress-fill { background: #D97757; height: 3px; border-radius: 3px; width: 34%; }
+  .progress-meta { display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: rgba(255,255,255,0.25); }
+  .editor-area { padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .editor-para { font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.55); }
+  .editor-para.active-para { color: rgba(255,255,255,0.82); }
+  .word-highlight { background: rgba(217,119,87,0.22); color: #D97757; border-radius: 3px; padding: 0 2px; }
+  .play-fab { position: absolute; bottom: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: #D97757; display: flex; align-items: center; justify-content: center; box-shadow: none; border: none; color: #fff; font-size: 20px; }
+  .editor-wrap { position: relative; }
+
+  .rsvp-screen { background: #0a0a08; border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); overflow: hidden; }
+  .rsvp-topbar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-bottom: 0.5px solid rgba(255,255,255,0.05); }
+  .rsvp-logo { font-size: 12px; color: rgba(217,119,87,0.5); }
+  .rsvp-wpm-badge { font-size: 11px; color: rgba(255,255,255,0.3); font-variant-numeric: tabular-nums; }
+  .rsvp-exit { font-size: 11px; color: rgba(255,255,255,0.2); border: 0.5px solid rgba(255,255,255,0.08); padding: 3px 8px; border-radius: 5px; background: transparent; }
+  .rsvp-stage { display: flex; align-items: center; justify-content: center; padding: 40px 0 32px; position: relative; }
+  .rsvp-word-wrap { position: relative; display: flex; align-items: baseline; }
+  .rsvp-before { font-size: 38px; font-weight: 400; color: rgba(255,255,255,0.75); font-family: var(--font-serif); letter-spacing: 0.01em; }
+  .rsvp-orp { font-size: 38px; font-weight: 400; color: #D97757; font-family: var(--font-serif); letter-spacing: 0.01em; }
+  .rsvp-after { font-size: 38px; font-weight: 400; color: rgba(255,255,255,0.75); font-family: var(--font-serif); letter-spacing: 0.01em; }
+  .orp-guide { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .orp-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(217,119,87,0.45); }
+  .orp-line { width: 0.5px; height: 8px; background: rgba(217,119,87,0.2); }
+  .rsvp-progress-wrap { padding: 0 20px 4px; }
+  .rsvp-controls { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 16px 18px; border-top: 0.5px solid rgba(255,255,255,0.05); }
+  .ctrl-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: transparent; border: none; cursor: pointer; }
+  .ctrl-icon { width: 34px; height: 34px; border-radius: 8px; border: 0.5px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); font-size: 16px; }
+  .ctrl-icon.primary { background: rgba(217,119,87,0.15); border-color: rgba(217,119,87,0.3); color: #D97757; font-size: 20px; width: 40px; height: 40px; border-radius: 10px; }
+  .ctrl-label { font-size: 9px; color: rgba(255,255,255,0.2); }
+  .ctrl-kbd { font-size: 8px; color: rgba(217,119,87,0.4); font-family: var(--font-mono); }
+  .rsvp-progress-bar-wrap { background: rgba(255,255,255,0.05); border-radius: 2px; height: 2px; }
+  .rsvp-progress-fill { background: linear-gradient(90deg, rgba(217,119,87,0.6), #D97757); height: 2px; border-radius: 2px; width: 42%; }
+  .spacer { height: 20px; }
+</style>
+
+<div class="mock-root">
+  <div class="section-label">Vista editor</div>
+  <div class="screen editor-wrap">
+    <div class="topbar">
+      <div class="logo">RSVP reader</div>
+      <div class="tab-row">
+        <div class="tab active">Editor</div>
+        <div class="tab">Ajustes</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="btn-ghost">Limpiar</div>
+        <div class="btn-primary"><i class="ti ti-player-play" aria-hidden="true" style="font-size:11px; margin-right:4px;"></i>Leer</div>
+      </div>
+    </div>
+    <div class="editor-body">
+      <div class="sidebar">
+        <div class="upload-zone">
+          <div class="upload-icon"><i class="ti ti-upload" aria-hidden="true"></i></div>
+          <div class="upload-text">Arrastra o haz clic para subir</div>
+          <div class="upload-formats">PDF · DOCX · TXT</div>
+        </div>
+        <div>
+          <div class="sidebar-section">Velocidad</div>
+          <div class="wpm-control">
+            <div>
+              <div class="wpm-val">300</div>
+              <div class="wpm-label">palabras/min</div>
+            </div>
+            <div class="wpm-btns">
+              <div class="wpm-btn">−</div>
+              <div class="wpm-btn">+</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="sidebar-section">Progreso</div>
+          <div class="progress-bar-wrap"><div class="progress-fill"></div></div>
+          <div class="progress-meta"><span>palabra 87</span><span>256 total</span></div>
+        </div>
+      </div>
+      <div class="editor-area">
+        <div class="editor-para">La inteligencia artificial ha transformado la manera en que procesamos información en los últimos años, con implicaciones profundas para la productividad humana y la naturaleza del trabajo cognitivo.</div>
+        <div class="editor-para active-para">El aprendizaje por refuerzo, en particular, ha demostrado capacidades <span class="word-highlight">sorprendentes</span> en dominios que antes se consideraban exclusivos de la cognición humana, desde el ajedrez hasta el diseño de proteínas.</div>
+        <div class="editor-para">Sin embargo, persisten preguntas fundamentales sobre la comprensión genuina versus el reconocimiento de patrones estadísticos en estos sistemas, un debate que continúa animando la filosofía de la mente.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="section-label">Modo RSVP</div>
+  <div class="rsvp-screen">
+    <div class="rsvp-topbar">
+      <div class="rsvp-logo">RSVP reader</div>
+      <div class="rsvp-wpm-badge">300 WPM</div>
+      <button class="rsvp-exit"><i class="ti ti-x" aria-hidden="true" style="font-size:10px; margin-right:3px;"></i>Esc</button>
+    </div>
+    <div class="rsvp-stage">
+      <div class="orp-guide">
+        <div class="orp-dot"></div>
+        <div class="orp-line"></div>
+      </div>
+      <div class="rsvp-word-wrap">
+        <span class="rsvp-before">s</span><span class="rsvp-orp">o</span><span class="rsvp-after">rprendentes</span>
+      </div>
+    </div>
+    <div class="rsvp-progress-wrap">
+      <div class="rsvp-progress-bar-wrap"><div class="rsvp-progress-fill"></div></div>
+    </div>
+    <div class="rsvp-controls">
+      <div class="ctrl-btn">
+        <div class="ctrl-icon"><i class="ti ti-rotate" aria-hidden="true"></i></div>
+        <div class="ctrl-label">inicio párr.</div>
+        <div class="ctrl-kbd">↑</div>
+      </div>
+      <div class="ctrl-btn">
+        <div class="ctrl-icon"><i class="ti ti-player-skip-back" aria-hidden="true"></i></div>
+        <div class="ctrl-label">−10 palabras</div>
+        <div class="ctrl-kbd">←</div>
+      </div>
+      <div class="ctrl-btn">
+        <div class="ctrl-icon primary"><i class="ti ti-player-pause" aria-hidden="true"></i></div>
+        <div class="ctrl-label">pausa</div>
+        <div class="ctrl-kbd">Space</div>
+      </div>
+      <div class="ctrl-btn">
+        <div class="ctrl-icon"><i class="ti ti-player-skip-forward" aria-hidden="true"></i></div>
+        <div class="ctrl-label">+10 palabras</div>
+        <div class="ctrl-kbd">→</div>
+      </div>
+      <div class="ctrl-btn">
+        <div class="ctrl-icon" style="flex-direction:column; gap:1px;">
+          <span style="font-size:9px; color:rgba(255,255,255,0.4);">WPM</span>
+          <i class="ti ti-arrows-vertical" aria-hidden="true" style="font-size:13px;"></i>
+        </div>
+        <div class="ctrl-label">velocidad</div>
+        <div class="ctrl-kbd">[ ]</div>
+      </div>
+    </div>
+  </div>
+</div>
