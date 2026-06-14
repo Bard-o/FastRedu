@@ -1,0 +1,25 @@
+/**
+ * AriaLiveRegion.module.css — Visually hidden ARIA live region
+ * =============================================================
+ * Wraps the RSVP word for screen reader announcements.
+ * The wrapper is visually hidden but accessible to assistive tech.
+ *
+ * @see AriaLiveRegion.tsx
+ */
+
+/**
+ * Visually hidden but accessible to screen readers.
+ * Uses the standard accessible hiding pattern (clip + position).
+ * @selector .srOnly
+ */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,21 @@
+/**
+ * App.module.css — Root layout container
+ * =======================================
+ * Top-level flex container that fills the viewport.
+ * View switching is handled by conditional rendering in App.tsx.
+ *
+ * CSS variables used: none (layout only)
+ *
+ * @see App.tsx for the reducer that controls view state
+ */
+
+/**
+ * Root flex container — full viewport height
+ * @selector .root
+ */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-editor);
+}

@@ -1,0 +1,60 @@
+/**
+ * ErrorBoundary.module.css — Error fallback UI
+ * ==============================================
+ * Styles for the error fallback that renders when
+ * a child component throws an error.
+ *
+ * @see ErrorBoundary.tsx
+ */
+
+/**
+ * Fallback container — centered, with an icon and message
+ * @selector .fallback
+ */
+.fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  min-height: 200px;
+  background-color: var(--bg-editor);
+  border-radius: var(--radius-xl);
+  border: 0.5px solid var(--border-subtle);
+  text-align: center;
+}
+
+.fallbackIcon {
+  font-size: 32px;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.fallbackTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.fallbackMessage {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.fallbackRetry {
+  font-size: 12px;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--accent-dim);
+  border: 0.5px solid rgba(217, 119, 87, 0.3);
+  color: var(--accent);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.fallbackRetry:hover {
+  background: rgba(217, 119, 87, 0.22);
+}

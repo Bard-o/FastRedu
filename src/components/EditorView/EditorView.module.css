@@ -1,0 +1,346 @@
+/**
+ * EditorView.module.css — Editor view layout
+ * ============================================
+ * Contains the upload zone, sidebar, and text editor.
+ *
+ * Color palette consumed via CSS custom properties:
+ * - --bg-editor: editor background
+ * - --accent: coral accent for highlights/focus
+ * - --text-primary, --text-secondary, --text-tertiary
+ * - --border-subtle, --border-input
+ *
+ * @see EditorView.tsx
+ */
+
+/**
+ * Main container — full height, sidebar + editor area
+ * @selector .container
+ */
+.container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--bg-editor);
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
+
+/**
+ * Left sidebar — fixed width 220px, border-right divider
+ * @selector .sidebar
+ */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border-right: 0.5px solid var(--border-subtle);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/**
+ * Upload zone — dashed border, centered content
+ * @selector .uploadZone
+ */
+.uploadZone {
+  border: 0.5px dashed rgba(217, 119, 87, 0.4);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.uploadZone:hover {
+  border-color: var(--accent);
+}
+
+.uploadIcon {
+  font-size: 20px;
+  color: rgba(217, 119, 87, 0.6);
+  margin-bottom: var(--space-2);
+}
+
+.uploadText {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.uploadFormats {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+  margin-top: var(--space-1);
+}
+
+/**
+ * Sidebar section label — uppercase, tiny, tertiary color
+ * @selector .sidebarSectionLabel
+ */
+.sidebarSectionLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+/* ─── WPM Control ─────────────────────────────────────────────────────────── */
+
+/**
+ * WPM row — flex between value and +/- buttons
+ * @selector .wpmControl
+ */
+.wpmControl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wpmValue {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.wpmLabel {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.wpmBtns {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.wpmBtn {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--border-input);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.wpmBtn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* ─── Progress ────────────────────────────────────────────────────────────── */
+
+/**
+ * Progress bar track
+ * @selector .progressBarWrap
+ */
+.progressBarWrap {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  height: 3px;
+  overflow: hidden;
+}
+
+/**
+ * Progress bar fill — coral accent
+ * @selector .progressFill
+ */
+.progressFill {
+  background: var(--accent);
+  height: 3px;
+  border-radius: 3px;
+  transition: width var(--transition-normal);
+}
+
+.progressMeta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ─── Editor Area ─────────────────────────────────────────────────────────── */
+
+/**
+ * Editor content area — scrollable, padded
+ * @selector .editorArea
+ */
+.editorArea {
+  flex: 1;
+  padding: var(--space-5) 22px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/**
+ * Paragraph in editor
+ * @selector .editorPara
+ */
+.editorPara {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  cursor: text;
+}
+
+/**
+ * Active paragraph — slightly brighter text
+ * @selector .editorParaActive
+ */
+.editorParaActive {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/**
+ * Highlighted word inside paragraph
+ * @selector .wordHighlight
+ */
+.wordHighlight {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* ─── Topbar ──────────────────────────────────────────────────────────────── */
+
+/**
+ * Top bar — logo left, tabs center, actions right
+ * @selector .topbar
+ */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--space-4);
+  border-bottom: 0.5px solid var(--border-subtle);
+  background-color: var(--bg-editor);
+}
+
+/**
+ * Logo text — accent color, small
+ * @selector .logo
+ */
+.logo {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.tabRow {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.tab {
+  font-size: 12px;
+  padding: var(--space-1) 10px;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tabActive {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.topbarActions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.btnGhost {
+  font-size: 12px;
+  padding: var(--space-1) 10px;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border-input);
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btnGhost:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.btnPrimary {
+  font-size: 12px;
+  padding: var(--space-1) 12px;
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: all var(--transition-fast);
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
+
+/* ─── FAB Play Button ─────────────────────────────────────────────────────── */
+
+/**
+ * Play FAB — fixed bottom-right, coral circle
+ * @selector .playFab
+ */
+.playFab {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all var(--transition-fast);
+}
+
+.playFab:hover {
+  transform: scale(1.05);
+}
+
+.playFab:active {
+  transform: scale(0.97);
+}
+
+/**
+ * Editor wrapper — relative for FAB positioning
+ * @selector .editorWrap
+ */
+.editorWrap {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}

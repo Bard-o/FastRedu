@@ -1,0 +1,257 @@
+/**
+ * RSVPView.module.css — RSVP reading mode layout
+ * ================================================
+ * Full-screen focused reading view with ORP display
+ * and control bar.
+ *
+ * Color palette consumed via CSS custom properties:
+ * - --bg-rsvp: darker background for concentration
+ * - --accent: coral for ORP character and progress
+ * - --text-primary: word display text
+ * - --border-subtle: dividers
+ *
+ * @see RSVPView.tsx
+ */
+
+/**
+ * RSVP screen container
+ * @selector .container
+ */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-rsvp);
+}
+
+/* ─── Topbar ──────────────────────────────────────────────────────────────── */
+
+/**
+ * Top bar — minimal, just logo + WPM badge + exit
+ * @selector .rsvpTopbar
+ */
+.rsvpTopbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px var(--space-4);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+}
+
+.rsvpLogo {
+  font-size: 12px;
+  color: rgba(217, 119, 87, 0.5);
+}
+
+.rsvpWpmBadge {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  font-variant-numeric: tabular-nums;
+}
+
+.rsvpExit {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.2);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: all var(--transition-fast);
+}
+
+.rsvpExit:hover {
+  color: var(--text-secondary);
+  border-color: var(--border-input);
+}
+
+/* ─── RSVP Stage (word display) ───────────────────────────────────────────── */
+
+/**
+ * Stage — vertically and horizontally centered
+ * @selector .rsvpStage
+ */
+.rsvpStage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0 32px;
+  position: relative;
+  flex: 1;
+}
+
+/**
+ * Word wrapper — relative for ORP guide positioning
+ * @selector .rsvpWordWrap
+ */
+.rsvpWordWrap {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+}
+
+/**
+ * ORP guide — vertical dotted line above the ORP character
+ * @selector .orpGuide
+ */
+.orpGuide {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.orpDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(217, 119, 87, 0.45);
+}
+
+.orpLine {
+  width: 0.5px;
+  height: 8px;
+  background: rgba(217, 119, 87, 0.2);
+}
+
+/**
+ * Word parts — serif font, 38px
+ * @selector .rsvpBefore, .rsvpOrp, .rsvpAfter
+ */
+.rsvpBefore {
+  font-size: 38px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+.rsvpOrp {
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--accent);
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+.rsvpAfter {
+  font-size: 38px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+/* ─── Progress Bar ────────────────────────────────────────────────────────── */
+
+/**
+ * Progress bar track
+ * @selector .rsvpProgressWrap
+ */
+.rsvpProgressWrap {
+  padding: 0 var(--space-5) var(--space-1);
+}
+
+.rsvpProgressBarWrap {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  height: 2px;
+  overflow: hidden;
+}
+
+.rsvpProgressFill {
+  background: linear-gradient(90deg, rgba(217, 119, 87, 0.6), var(--accent));
+  height: 2px;
+  border-radius: 2px;
+  transition: width var(--transition-normal);
+}
+
+/* ─── Controls ────────────────────────────────────────────────────────────── */
+
+/**
+ * Controls bar — centered row of control buttons
+ * @selector .rsvpControls
+ */
+.rsvpControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-4) var(--space-5);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.05);
+}
+
+/**
+ * Control button — icon + label + kbd hint stacked
+ * @selector .ctrlBtn
+ */
+.ctrlBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.ctrlIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  transition: all var(--transition-fast);
+}
+
+.ctrlIcon:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/**
+ * Primary control icon (play/pause)
+ * @selector .ctrlIconPrimary
+ */
+.ctrlIconPrimary {
+  background: var(--accent-dim);
+  border-color: rgba(217, 119, 87, 0.3);
+  color: var(--accent);
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+}
+
+.ctrlIconPrimary:hover {
+  background: rgba(217, 119, 87, 0.22);
+  border-color: rgba(217, 119, 87, 0.5);
+  color: var(--accent);
+}
+
+.ctrlLabel {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.ctrlKbd {
+  font-size: 8px;
+  color: rgba(217, 119, 87, 0.4);
+  font-family: var(--font-mono);
+}
