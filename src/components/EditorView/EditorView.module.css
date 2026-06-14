@@ -335,12 +335,13 @@
 }
 
 /**
- * Editor wrapper — relative for FAB positioning
+ * Editor wrapper — column flex so topbar sits on top, sidebar+editor below
  * @selector .editorWrap
  */
 .editorWrap {
   position: relative;
   display: flex;
+  flex-direction: column;
   flex: 1;
   min-height: 0;
 }
