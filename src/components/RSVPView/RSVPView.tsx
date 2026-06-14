@@ -6,6 +6,14 @@ interface Props {
   words: string[]
   currentIndex: number
   wpm: number
+  paragraphBoundaries: number[]
+  isPlaying: boolean
+  onPlay: () => void
+  onPause: () => void
+  onToggle: () => void
+  onSkip: (n: number) => void
+  onJumpToParagraphStart: () => void
+  onAdjustWpm: (delta: number) => void
   _onIndexChange: (index: number) => void
   _onWpmChange: (wpm: number) => void
   onExit: () => void

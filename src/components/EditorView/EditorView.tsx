@@ -7,7 +7,8 @@ interface Props {
   words: string[]
   currentIndex: number
   wpm: number
-  _onTextChange: (text: string, words: string[]) => void
+  paragraphBoundaries: number[]
+  _onTextChange: (text: string, words: string[], paragraphBoundaries: number[]) => void
   onWpmChange: (wpm: number) => void
   onRead: () => void
   onClear: () => void

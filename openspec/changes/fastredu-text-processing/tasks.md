@@ -35,11 +35,11 @@ Chain strategy: pending
 
 ## Phase 2: Hooks + AppState
 
-- [ ] 2.1 Create `src/hooks/useTextExtractor.ts` — `extractText(file)` routes by extension: `.txt` via `file.text()`, `.pdf` via pdfjs-dist with worker `new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url)`, `.docx` via `mammoth.extractRawText`; rejects unknown/corrupted
-- [ ] 2.2 Create `src/hooks/useRSVPEngine.ts` — recursive `setTimeout` in `useRef` tick function; exposes play/pause/toggle/skip/jumpToParagraphStart/adjustWpm; clamps skip to `[0, len-1]`; jump finds largest boundary ≤ currentIndex; localStorage persist `rsvp_index`/`rsvp_wpm`; dispatches `SET_CURRENT_INDEX`/`SET_WPM`
-- [ ] 2.3 Modify `src/App.tsx` — add `paragraphBoundaries: number[]` to AppState; extend `SET_TEXT` action with `paragraphBoundaries` field; init `paragraphBoundaries: []` in initialState; pass `paragraphBoundaries` through both Shell components
-- [ ] 2.4 Create `src/hooks/useTextExtractor.test.ts` — mock File for TXT extraction; verify rejection on unknown extension
-- [ ] 2.5 Create `src/hooks/useRSVPEngine.test.ts` — renderHook with fake timers; test play/pause, skip bounds, jump-to-paragraph, WPM bounds (100–1000), localStorage persistence
+- [x] 2.1 Create `src/hooks/useTextExtractor.ts` — `extractText(file)` routes by extension: `.txt` via `file.text()`, `.pdf` via pdfjs-dist with worker `new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url)`, `.docx` via `mammoth.extractRawText`; rejects unknown/corrupted
+- [x] 2.2 Create `src/hooks/useRSVPEngine.ts` — recursive `setTimeout` in `useRef` tick function; exposes play/pause/toggle/skip/jumpToParagraphStart/adjustWpm; clamps skip to `[0, len-1]`; jump finds largest boundary ≤ currentIndex; localStorage persist `rsvp_index`/`rsvp_wpm`; dispatches `SET_CURRENT_INDEX`/`SET_WPM`
+- [x] 2.3 Modify `src/App.tsx` — add `paragraphBoundaries: number[]` to AppState; extend `SET_TEXT` action with `paragraphBoundaries` field; init `paragraphBoundaries: []` in initialState; pass `paragraphBoundaries` through both Shell components
+- [x] 2.4 Create `src/hooks/useTextExtractor.test.ts` — mock File for TXT extraction; verify rejection on unknown extension
+- [x] 2.5 Create `src/hooks/useRSVPEngine.test.ts` — renderHook with fake timers; test play/pause, skip bounds, jump-to-paragraph, WPM bounds (100–1000), localStorage persistence
 
 ## Phase 3: View Wiring
 
