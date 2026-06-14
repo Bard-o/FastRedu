@@ -1,0 +1,66 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Project: FastRedu — RSVP (Rapid Serial Visual Presentation) Reader
+  Stack: React + Vite + TypeScript (greenfield, no package.json yet)
+  Architecture: Two views (Editor, RSVP Reader), single useReducer in App, prop drilling
+  Views: EditorView (UploadZone + TextEditor + Sidebar) and RSVPView (RSVPDisplay + ControlBar)
+  Backend: None. All client-side.
+  Router: None. State-driven view switching.
+  Persistence: localStorage for reading position (rsvp_index) and speed (rsvp_wpm)
+  PDF extraction: pdfjs-dist
+  DOCX extraction: mammoth
+  Text processing: Custom tokenization, ORP calculation at 35% word length, adaptive timing multipliers
+  Visual: Dark theme (#0f0f0d bg, #D97757 coral accent, white text), serif font for RSVP display
+  Convention: Component-per-directory under src/components/{View}/
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Reference PHASES.md for implementation order
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase from PHASES.md
+    - Keep tasks completable in one session
+    - Include test setup as first task when adding tests
+  apply:
+    - Follow existing code patterns in PHASES.md
+    - Create components in their own directories
+    - Add CSS modules or global styles per PHASES.md
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "npm run build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
+
+testing:
+  strict_tdd: false
+  note: "No test runner detected. Tests must be added during implementation. Recommend vitest."
+  detected_at: "2026-06-13"
+  runner: null
+  layers:
+    unit: { available: false, tool: null }
+    integration: { available: false, tool: null }
+    e2e: { available: false, tool: null }
+  coverage:
+    available: false
+    command: null
+  quality:
+    linter: { available: false, command: null }
+    type_checker: { available: false, command: "tsc --noEmit" }
+    formatter: { available: false, command: null }
+
+session:
+  pace: interactive
+  prs: ask-always
+  review_budget: 400
+  artifact_store: openspec
