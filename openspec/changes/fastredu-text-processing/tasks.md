@@ -43,10 +43,10 @@ Chain strategy: pending
 
 ## Phase 3: View Wiring
 
-- [ ] 3.1 Modify `src/components/EditorView/EditorView.tsx` — add `onFileDrop: (file: File) => void` prop; wire `onDragOver`/`onDragLeave`/`onDrop` on UploadZone; connect file input `onChange` to call `onFileDrop`; reset input value after select
-- [ ] 3.2 Modify `src/App.tsx` EditorViewShell — instantiate `useTextExtractor`; wire `onFileDrop` to `extractText(file)` → `processText(raw)` → `dispatch SET_TEXT` with words + boundaries
-- [ ] 3.3 Modify `src/components/RSVPView/RSVPView.tsx` — import `splitWordAtOrp` from `../../utils/orp`; replace lines 22-42 (inline ORP) with `const { before, orp, after } = splitWordAtOrp(word)`
-- [ ] 3.4 Modify `src/App.tsx` RSVPViewShell — instantiate `useRSVPEngine(words, paragraphBoundaries, wpm, dispatch)`; pass engine methods as props to RSVPView; wire control buttons to engine methods
+- [x] 3.1 Modify `src/components/EditorView/EditorView.tsx` — add `onFileDrop: (file: File) => void` prop; wire `onDragOver`/`onDragLeave`/`onDrop` on UploadZone; connect file input `onChange` to call `onFileDrop`; reset input value after select
+- [x] 3.2 Modify `src/App.tsx` EditorViewShell — instantiate `useTextExtractor`; wire `onFileDrop` to `extractText(file)` → `processText(raw)` → `dispatch SET_TEXT` with words + boundaries
+- [x] 3.3 Modify `src/components/RSVPView/RSVPView.tsx` — import `splitWordAtOrp` from `../../utils/orp`; replace lines 22-42 (inline ORP) with `const { before, orp, after } = splitWordAtOrp(word)`
+- [x] 3.4 Modify `src/App.tsx` RSVPViewShell — instantiate `useRSVPEngine(words, paragraphBoundaries, wpm, dispatch)`; pass engine methods as props to RSVPView; wire control buttons to engine methods
 
 ## Phase 4: Verification
 

@@ -56,6 +56,11 @@
   border-color: var(--accent);
 }
 
+.uploadZoneDragging {
+  border-color: var(--accent);
+  background: rgba(217, 119, 87, 0.05);
+}
+
 .uploadIcon {
   font-size: 2rem;
   color: rgba(217, 119, 87, 0.6);
@@ -201,6 +206,32 @@
  */
 .editorParaActive {
   color: rgba(255, 255, 255, 0.82);
+}
+
+/**
+ * Textarea — full-height text editing area
+ * @selector .editorTextarea
+ */
+.editorTextarea {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.3rem;
+  line-height: 1.75;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  padding: 0;
+}
+
+.editorTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.editorTextarea:focus {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /**

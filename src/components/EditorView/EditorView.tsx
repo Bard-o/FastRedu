@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { IconUpload, IconPlayerPlay, IconMinus, IconPlus } from '@tabler/icons-react'
 import styles from './EditorView.module.css'
 
@@ -7,8 +7,8 @@ interface Props {
   words: string[]
   currentIndex: number
   wpm: number
-  paragraphBoundaries: number[]
-  _onTextChange: (text: string, words: string[], paragraphBoundaries: number[]) => void
+  onTextChange: (text: string) => void
+  onFileDrop: (file: File) => void
   onWpmChange: (wpm: number) => void
   onRead: () => void
   onClear: () => void
@@ -19,20 +19,36 @@ export function EditorView({
   words,
   currentIndex,
   wpm,
+  onTextChange,
+  onFileDrop,
   onWpmChange,
   onRead,
   onClear,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isDragging, setIsDragging] = useState(false)
 
-  // Placeholder paragraphs for the empty state
-  const paragraphs = text
-    ? text.split(/\n\n+/)
-    : [
-        'La inteligencia artificial ha transformado la manera en que procesamos información en los últimos años, con implicaciones profundas para la productividad humana y la naturaleza del trabajo cognitivo.',
-        'El aprendizaje por refuerzo, en particular, ha demostrado capacidades sorprendentes en dominios que antes se consideraban exclusivos de la cognición humana.',
-        'Sin embargo, persisten preguntas fundamentales sobre la comprensión genuina versus el reconocimiento de patrones estadísticos.',
-      ]
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (_e: React.DragEvent) => {
+    setIsDragging(false)
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const file = e.dataTransfer.files[0]
+    if (file) onFileDrop(file)
+  }
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) onFileDrop(file)
+    e.target.value = ''
+  }
 
   return (
     <div className={styles.editorWrap}>
@@ -59,8 +75,11 @@ export function EditorView({
         <div className={styles.sidebar}>
           {/* Upload zone */}
           <div
-            className={styles.uploadZone}
+            className={`${styles.uploadZone} ${isDragging ? styles.uploadZoneDragging : ''}`}
             onClick={() => fileInputRef.current?.click()}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
             role="button"
             tabIndex={0}
             onKeyDown={e => e.key === 'Enter' && fileInputRef.current?.click()}
@@ -76,7 +95,7 @@ export function EditorView({
             type="file"
             accept=".pdf,.docx,.txt"
             style={{ display: 'none' }}
-            onChange={() => {}}
+            onChange={handleFileInput}
           />
 
           {/* WPM Control */}
@@ -126,11 +145,13 @@ export function EditorView({
 
         {/* Editor area */}
         <div className={styles.editorArea}>
-          {paragraphs.map((para, i) => (
-            <p key={i} className={styles.editorPara}>
-              {para}
-            </p>
-          ))}
+          <textarea
+            className={styles.editorTextarea}
+            value={text}
+            onChange={e => onTextChange(e.target.value)}
+            placeholder="Pega texto aquí o sube un archivo..."
+            spellCheck={false}
+          />
         </div>
       </div>
 

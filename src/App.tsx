@@ -1,5 +1,7 @@
 import { useReducer, type ReactNode } from 'react'
 import { useRSVPEngine } from './hooks/useRSVPEngine'
+import { useTextExtractor } from './hooks/useTextExtractor'
+import { processText } from './utils/textProcessor'
 import styles from './App.module.css'
 
 // ─── State ────────────────────────────────────────────────────────────────────
@@ -80,14 +82,31 @@ function EditorViewShell({
   dispatch: React.Dispatch<AppAction>
   onSetView: (view: View) => void
 }) {
+  const { extractText } = useTextExtractor()
+
+  const handleFileDrop = async (file: File) => {
+    try {
+      const raw = await extractText(file)
+      const { words, paragraphBoundaries } = processText(raw)
+      dispatch({ type: 'SET_TEXT', text: raw, words, paragraphBoundaries })
+    } catch (err) {
+      console.error('Failed to extract text:', err)
+    }
+  }
+
+  const handleTextChange = (text: string) => {
+    const { words, paragraphBoundaries } = processText(text)
+    dispatch({ type: 'SET_TEXT', text, words, paragraphBoundaries })
+  }
+
   return (
     <EditorView
       text={state.text}
       words={state.words}
       currentIndex={state.currentIndex}
       wpm={state.wpm}
-      paragraphBoundaries={state.paragraphBoundaries}
-      _onTextChange={(text, words, paragraphBoundaries) => dispatch({ type: 'SET_TEXT', text, words, paragraphBoundaries })}
+      onTextChange={handleTextChange}
+      onFileDrop={handleFileDrop}
       onWpmChange={(wpm) => dispatch({ type: 'SET_WPM', wpm })}
       onRead={() => onSetView('rsvp')}
       onClear={() => dispatch({ type: 'CLEAR' })}

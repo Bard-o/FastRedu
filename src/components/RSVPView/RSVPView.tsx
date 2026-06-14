@@ -1,4 +1,5 @@
-import { IconX, IconPlayerSkipBack, IconPlayerSkipForward, IconPlayerPause, IconArrowsVertical, IconRewindBackward10 } from '@tabler/icons-react'
+import { IconX, IconPlayerSkipBack, IconPlayerSkipForward, IconPlayerPause, IconPlayerPlay, IconArrowsVertical, IconRewindBackward10 } from '@tabler/icons-react'
+import { splitWordAtOrp } from '../../utils/orp'
 import { AriaLiveRegion } from '../shared/AriaLiveRegion'
 import styles from './RSVPView.module.css'
 
@@ -23,31 +24,17 @@ export function RSVPView({
   words,
   currentIndex,
   wpm,
+  isPlaying,
+  onToggle,
+  onSkip,
+  onJumpToParagraphStart,
+  onAdjustWpm,
   onExit,
 }: Props) {
   const word = words[currentIndex] ?? ''
 
-  // Simple ORP split — implement properly in Phase 2
-  const cleanLen = word.replace(/^[^a-zA-ZáéíóúÁÉÍÓÚñÑ]+|[^a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/g, '').length
-  const orpIdx = cleanLen > 0 ? Math.floor(cleanLen * 0.35) : 0
-
-  let before = word.slice(0, orpIdx)
-  let orp = ''
-  let after = word.slice(orpIdx)
-
-  // Adjust for any leading non-alpha chars (they go to "before")
-  const leadingNonAlpha = word.match(/^[^a-zA-ZáéíóúÁÉÍÓÚñÑ]*/)?.[0] ?? ''
-  if (leadingNonAlpha && before.startsWith(leadingNonAlpha)) {
-    before = before.slice(leadingNonAlpha.length)
-    orp = leadingNonAlpha + orp
-  }
-
-  // If ORP is empty but we have a word, take first letter
-  if (!orp && word.length > 0) {
-    orp = word[0]
-    after = word.slice(1)
-    before = ''
-  }
+  // ORP split using the utility function
+  const { before, orp, after } = splitWordAtOrp(word)
 
   const progress = words.length > 0 ? ((currentIndex + 1) / words.length) * 100 : 0
 
@@ -85,7 +72,7 @@ export function RSVPView({
 
       {/* Controls */}
       <div className={styles.rsvpControls}>
-        <button className={styles.ctrlBtn} title="Inicio del párrafo (↑)">
+        <button className={styles.ctrlBtn} title="Inicio del párrafo (↑)" onClick={onJumpToParagraphStart}>
           <div className={styles.ctrlIcon}>
             <IconRewindBackward10 size={16} />
           </div>
@@ -93,7 +80,7 @@ export function RSVPView({
           <span className={styles.ctrlKbd}>↑</span>
         </button>
 
-        <button className={styles.ctrlBtn} title="-10 palabras (←)">
+        <button className={styles.ctrlBtn} title="-10 palabras (←)" onClick={() => onSkip(-10)}>
           <div className={styles.ctrlIcon}>
             <IconPlayerSkipBack size={16} />
           </div>
@@ -101,15 +88,15 @@ export function RSVPView({
           <span className={styles.ctrlKbd}>←</span>
         </button>
 
-        <button className={styles.ctrlBtn} title="Pausa (Space)">
+        <button className={styles.ctrlBtn} title={isPlaying ? 'Pausa (Space)' : 'Reproducir (Space)'} onClick={onToggle}>
           <div className={`${styles.ctrlIcon} ${styles.ctrlIconPrimary}`}>
-            <IconPlayerPause size={20} />
+            {isPlaying ? <IconPlayerPause size={20} /> : <IconPlayerPlay size={20} />}
           </div>
-          <span className={styles.ctrlLabel}>pausa</span>
+          <span className={styles.ctrlLabel}>{isPlaying ? 'pausa' : 'reproducir'}</span>
           <span className={styles.ctrlKbd}>Space</span>
         </button>
 
-        <button className={styles.ctrlBtn} title="+10 palabras (→)">
+        <button className={styles.ctrlBtn} title="+10 palabras (→)" onClick={() => onSkip(10)}>
           <div className={styles.ctrlIcon}>
             <IconPlayerSkipForward size={16} />
           </div>
@@ -117,7 +104,7 @@ export function RSVPView({
           <span className={styles.ctrlKbd}>→</span>
         </button>
 
-        <button className={styles.ctrlBtn} title="Ajustar WPM ([ ])">
+        <button className={styles.ctrlBtn} title="Ajustar WPM ([ ])" onClick={() => onAdjustWpm(25)}>
           <div className={styles.ctrlIcon} style={{ flexDirection: 'column', gap: '1px' }}>
             <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)' }}>WPM</span>
             <IconArrowsVertical size={13} />
