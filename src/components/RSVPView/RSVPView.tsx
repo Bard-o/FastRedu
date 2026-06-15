@@ -51,6 +51,9 @@ export function RSVPView({
   // ── WPM feedback flash ───────────────────────────────────────────
   const [wpmFlash, setWpmFlash] = useState<number | null>(null)
   const wpmTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // Always fresh wpm value for use in closures (keyboard handler)
+  const wpmRef = useRef(wpm)
+  wpmRef.current = wpm
 
   const flashWpm = (value: number) => {
     setWpmFlash(value)
@@ -83,12 +86,12 @@ export function RSVPView({
         case '[':
           e.preventDefault()
           onAdjustWpm(-25)
-          flashWpm(wpm - 25)
+          flashWpm(wpmRef.current - 25)
           break
         case ']':
           e.preventDefault()
           onAdjustWpm(25)
-          flashWpm(wpm + 25)
+          flashWpm(wpmRef.current + 25)
           break
         case 'Escape':
           e.preventDefault()
