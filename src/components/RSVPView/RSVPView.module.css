@@ -71,7 +71,8 @@
 /* ─── RSVP Stage (word display) ───────────────────────────────────────────── */
 
 /**
- * Stage — vertically and horizontally centered
+ * Stage — centered, with a fixed-width content zone so the ORP
+ * column is at a consistent horizontal position.
  * @selector .rsvpStage
  */
 .rsvpStage {
@@ -79,12 +80,25 @@
   align-items: center;
   justify-content: center;
   padding: 4rem 0 3.2rem;
-  position: relative;
   flex: 1;
 }
 
 /**
- * Word wrapper — relative for ORP guide positioning
+ * Content zone — fixed width; ORP falls at a consistent column
+ * by positioning the before-span at exactly half this width.
+ * @selector .rsvpContent
+ */
+.rsvpContent {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+
+/**
+ * Word wrapper — flex with ORP at fixed column.
+ * The before span reserves min-width = 50% of .rsvpContent
+ * and right-aligns its content, so ORP (last char) sits at
+ * the center column of .rsvpContent.
  * @selector .rsvpWordWrap
  */
 .rsvpWordWrap {
@@ -94,13 +108,31 @@
 }
 
 /**
- * ORP guide — vertical dotted line above the ORP character
+ * Before-ORP span — reserves exactly half of .rsvpContent
+ * (240px) and right-aligns, so the ORP character lands at
+ * the fixed center column.
+ * @selector .rsvpBefore
+ */
+.rsvpBefore {
+  min-width: 240px;
+  text-align: right;
+  font-size: 38px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+/**
+ * ORP guide — vertical dotted line positioned at the fixed
+ * ORP column (left: 240px = right edge of .rsvpBefore).
  * @selector .orpGuide
  */
 .orpGuide {
   position: absolute;
   top: -1.2rem;
-  left: 50%;
+  left: 240px;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -127,7 +159,9 @@
  * @selector .rsvpBefore, .rsvpOrp, .rsvpAfter
  */
 .rsvpBefore {
-  font-size: 3.8rem;
+  min-width: 120px;
+  text-align: right;
+  font-size: 38px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.75);
   font-family: var(--font-serif);
@@ -136,7 +170,7 @@
 }
 
 .rsvpOrp {
-  font-size: 3.8rem;
+  font-size: 38px;
   font-weight: 400;
   color: var(--accent);
   font-family: var(--font-serif);
@@ -145,7 +179,7 @@
 }
 
 .rsvpAfter {
-  font-size: 3.8rem;
+  font-size: 38px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.75);
   font-family: var(--font-serif);
