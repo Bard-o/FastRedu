@@ -52,14 +52,16 @@ export function RSVPView({
 
       {/* RSVP Stage */}
       <div className={styles.rsvpStage}>
-        <div className={styles.orpGuide}>
-          <div className={styles.orpDot} />
-          <div className={styles.orpLine} />
-        </div>
-        <div className={styles.rsvpWordWrap}>
-          <span className={styles.rsvpBefore}>{before}</span>
-          <span className={styles.rsvpOrp}>{orp}</span>
-          <span className={styles.rsvpAfter}>{after}</span>
+        <div className={styles.rsvpContent}>
+          <div className={styles.orpGuide}>
+            <div className={styles.orpDot} />
+            <div className={styles.orpLine} />
+          </div>
+          <div className={styles.rsvpWordWrap}>
+            <span className={styles.rsvpBefore}>{before}</span>
+            <span className={styles.rsvpOrp}>{orp}</span>
+            <span className={styles.rsvpAfter}>{after}</span>
+          </div>
         </div>
       </div>
 
