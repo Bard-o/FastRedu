@@ -1,4 +1,4 @@
-import { useReducer, type ReactNode } from 'react'
+import { useEffect, useReducer, type ReactNode } from 'react'
 import { useRSVPEngine } from './hooks/useRSVPEngine'
 import { useTextExtractor } from './hooks/useTextExtractor'
 import { processText } from './utils/textProcessor'
@@ -38,12 +38,17 @@ function reducer(state: AppState, action: AppAction): AppState {
     case 'SET_VIEW':
       return { ...state, view: action.view }
     case 'SET_TEXT':
+      localStorage.setItem('rsvp_text', action.text)
       return { ...state, text: action.text, words: action.words, paragraphBoundaries: action.paragraphBoundaries, currentIndex: 0 }
     case 'SET_CURRENT_INDEX':
+      localStorage.setItem('rsvp_index', String(action.index))
       return { ...state, currentIndex: action.index }
     case 'SET_WPM':
+      localStorage.setItem('rsvp_wpm', String(action.wpm))
       return { ...state, wpm: action.wpm }
     case 'CLEAR':
+      localStorage.removeItem('rsvp_text')
+      localStorage.removeItem('rsvp_index')
       return { ...initialState }
     default:
       return state
@@ -54,6 +59,31 @@ function reducer(state: AppState, action: AppAction): AppState {
 
 export function App(): ReactNode {
   const [state, dispatch] = useReducer(reducer, initialState)
+
+  // ── Session restoration ──────────────────────────────────────────
+  useEffect(() => {
+    const savedIndex = localStorage.getItem('rsvp_index')
+    const savedWpm = localStorage.getItem('rsvp_wpm')
+    const savedText = localStorage.getItem('rsvp_text')
+
+    if (savedWpm) {
+      dispatch({ type: 'SET_WPM', wpm: parseInt(savedWpm, 10) })
+    }
+
+    if (savedIndex && savedText) {
+      const index = parseInt(savedIndex, 10)
+      const { words, paragraphBoundaries } = processText(savedText)
+      if (words.length > 0) {
+        dispatch({
+          type: 'SET_TEXT',
+          text: savedText,
+          words,
+          paragraphBoundaries,
+        })
+        dispatch({ type: 'SET_CURRENT_INDEX', index: Math.min(index, words.length - 1) })
+      }
+    }
+  }, [])
 
   const handleSetView = (view: View) => dispatch({ type: 'SET_VIEW', view })
 
@@ -138,8 +168,6 @@ function RSVPViewShell({
       onSkip={engine.skip}
       onJumpToParagraphStart={engine.jumpToParagraphStart}
       onAdjustWpm={engine.adjustWpm}
-      _onIndexChange={(index) => dispatch({ type: 'SET_CURRENT_INDEX', index })}
-      _onWpmChange={(wpm) => dispatch({ type: 'SET_WPM', wpm })}
       onExit={() => onSetView('editor')}
     />
   )

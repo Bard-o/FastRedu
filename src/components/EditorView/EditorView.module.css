@@ -375,3 +375,46 @@
   flex: 1;
   min-height: 0;
 }
+
+/* ─── Animations ─────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fadeIn {
+  animation: fadeIn 200ms ease forwards;
+}
+
+/* ─── Responsive — mobile ─────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 0.5px solid var(--border-subtle);
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .uploadZone {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .editorArea {
+    padding: 1rem;
+  }
+
+  .playFab {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}

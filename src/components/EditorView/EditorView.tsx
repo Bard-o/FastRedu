@@ -51,7 +51,7 @@ export function EditorView({
   }
 
   return (
-    <div className={styles.editorWrap}>
+    <div className={`${styles.editorWrap} ${styles.fadeIn}`}>
       {/* Topbar */}
       <div className={styles.topbar}>
         <span className={styles.logo}>FastRedu</span>
