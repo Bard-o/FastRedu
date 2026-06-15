@@ -62,6 +62,10 @@ export function RSVPView({
             <span className={styles.rsvpOrp}>{orp}</span>
             <span className={styles.rsvpAfter}>{after}</span>
           </div>
+          <div className={styles.orpGuideBottom}>
+            <div className={styles.orpLine} />
+            <div className={styles.orpDot} />
+          </div>
         </div>
       </div>
 

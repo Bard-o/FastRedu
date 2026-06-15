@@ -84,14 +84,14 @@
 }
 
 /**
- * Content zone — fixed width; ORP falls at a consistent column
- * by positioning the before-span at exactly half this width.
+ * Content zone — fixed width, horizontally centered within the stage.
  * @selector .rsvpContent
  */
 .rsvpContent {
   position: relative;
   width: 100%;
   max-width: 480px;
+  margin: 0 auto;
 }
 
 /**
@@ -141,6 +141,22 @@
   pointer-events: none;
 }
 
+/**
+ * ORP guide bottom — mirrors the top guide, positioned below the word.
+ * @selector .orpGuideBottom
+ */
+.orpGuideBottom {
+  position: absolute;
+  bottom: -1.2rem;
+  left: 240px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
 .orpDot {
   width: 0.4rem;
   height: 0.4rem;
@@ -159,14 +175,7 @@
  * @selector .rsvpBefore, .rsvpOrp, .rsvpAfter
  */
 .rsvpBefore {
-  min-width: 120px;
-  text-align: right;
-  font-size: 38px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.75);
-  font-family: var(--font-serif);
-  letter-spacing: 0.01em;
-  user-select: none;
+  /* defined above at .rsvpBefore (line ~116) */
 }
 
 .rsvpOrp {
