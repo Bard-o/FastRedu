@@ -33,7 +33,7 @@ export function EditorView({
     setIsDragging(true)
   }
 
-  const handleDragLeave = (_e: React.DragEvent) => {
+  const handleDragLeave = () => {
     setIsDragging(false)
   }
 

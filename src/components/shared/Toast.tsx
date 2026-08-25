@@ -1,37 +1,14 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { IconX, IconCheck, IconInfoCircle, IconAlertCircle } from '@tabler/icons-react'
 import styles from './Toast.module.css'
-
-type ToastVariant = 'info' | 'success' | 'error'
+import { ToastContext, type ToastVariant } from './ToastContext'
 
 interface Toast {
   id: string
   message: string
   variant: ToastVariant
   exiting?: boolean
-}
-
-interface ToastContextValue {
-  toast: (message: string, variant?: ToastVariant) => void
-  toastError: (message: string) => void
-  toastSuccess: (message: string) => void
-}
-
-const ToastContext = createContext<ToastContextValue | null>(null)
-
-export function useToast(): ToastContextValue {
-  const ctx = useContext(ToastContext)
-  if (!ctx) throw new Error('useToast must be used within ToastProvider')
-  return ctx
 }
 
 const ICONS = {
@@ -73,10 +50,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const toastError = useCallback((message: string) => toast(message, 'error'), [toast])
   const toastSuccess = useCallback((message: string) => toast(message, 'success'), [toast])
 
-  // Cleanup on unmount
+  // Cleanup on unmount. Capture the Map now — by the time cleanup runs,
+  // timerRefs.current may point somewhere else.
   useEffect(() => {
+    const timers = timerRefs.current
     return () => {
-      timerRefs.current.forEach(timeout => clearTimeout(timeout))
+      timers.forEach(timeout => clearTimeout(timeout))
     }
   }, [])
 

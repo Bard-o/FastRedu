@@ -51,9 +51,12 @@ export function RSVPView({
   // ── WPM feedback flash ───────────────────────────────────────────
   const [wpmFlash, setWpmFlash] = useState<number | null>(null)
   const wpmTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  // Always fresh wpm value for use in closures (keyboard handler)
+  // Always fresh wpm value for use in closures (keyboard handler).
+  // Synced in an effect — writing to a ref during render is not allowed.
   const wpmRef = useRef(wpm)
-  wpmRef.current = wpm
+  useEffect(() => {
+    wpmRef.current = wpm
+  }, [wpm])
 
   const flashWpm = (value: number) => {
     setWpmFlash(value)

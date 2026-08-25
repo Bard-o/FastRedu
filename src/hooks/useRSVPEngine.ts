@@ -98,7 +98,9 @@ export function useRSVPEngine(
     }
   }, [])
 
-  const tick = useCallback(() => {
+  // Named function expression so the self-reference below binds to the
+  // function itself rather than the outer `const` (which is still in TDZ).
+  const tick = useCallback(function tick() {
     const nextIndex = currentIndexRef.current + 1
 
     if (nextIndex >= wordsRef.current.length) {
@@ -145,7 +147,7 @@ export function useRSVPEngine(
     } else {
       play()
     }
-  }, [isPlaying, pause, play])
+  }, [pause, play])
 
   const skip = useCallback((n: number) => {
     const newIndex = Math.max(0, Math.min(wordsRef.current.length - 1, currentIndexRef.current + n))
